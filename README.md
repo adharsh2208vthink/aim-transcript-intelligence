@@ -41,8 +41,6 @@ streamlit run dashboard/app.py
 
 ## Architecture
 
-![Architecture](architecture.png)
-
 ```mermaid
 flowchart LR
     subgraph INPUT
