@@ -60,14 +60,14 @@ flowchart LR
         TRI["Triage\ntier1 / tier2 / skip"]
         ANL["Analyst\nTF-IDF · spaCy · VADER\nFREE LOCAL"]
         NAR2["Narrator T2\nGemini Flash\nfree tier"]
-        AUD["Auditor\nShadow mode\nEdit Distance KPI\nVaibhav Jain / Millennium"]
-        NAR3["Narrator T3\nClaude Sonnet\n10 × 1000-word"]
+        AUD["Auditor\nShadow mode · Edit Distance KPI\nVaibhav Jain / Millennium"]
+        NAR3["Narrator T3\nClaude Sonnet\n10 x 1000-word"]
         JDG["Judge\nLLM-as-Judge\nAyushman Gupta / Genpact"]
         ARC --> TRI --> ANL --> NAR2 --> AUD --> NAR3 --> JDG
     end
 
-    subgraph BLACKBOARD["SHARED BLACKBOARD — DuckDB\nAnshul Singh & Sanketh Gadadinni / MathCo"]
-        EPI["Episodic Memory\nPENDING→FETCHED→TRIAGED\n→ANALYZED→SUMMARIZED→AUDITED"]
+    subgraph BLACKBOARD["SHARED BLACKBOARD — DuckDB — Anshul Singh and Sanketh Gadadinni / MathCo"]
+        EPI["Episodic Memory\nPENDING-FETCHED-TRIAGED-ANALYZED-SUMMARIZED-AUDITED"]
         SEM["Semantic Memory\nRAG chunks"]
         PRO["Procedural Memory\nRunbook rules\nmlds_day1 / mlds_day2"]
     end
@@ -75,7 +75,7 @@ flowchart LR
     subgraph OUTPUT
         DASH["Streamlit Dashboard\n5 Visualizations"]
         RPT["PDF Report\n10 Yearly Syntheses"]
-        MULTI["Multilingual\nHindi · Tamil · Telugu"]
+        MULTI["Multilingual\nHindi / Tamil / Telugu"]
     end
 
     YT --> ARC
