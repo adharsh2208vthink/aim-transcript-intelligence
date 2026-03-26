@@ -51,7 +51,7 @@ flowchart LR
     end
 
     subgraph ORCHESTRATOR
-        ORC["Orchestrator\nSupervisor\nShashank Rao / Atlassian"]
+        ORC["Orchestrator\nSupervisor"]
     end
 
     subgraph AGENTS
@@ -60,13 +60,13 @@ flowchart LR
         TRI["Triage\ntier1 / tier2 / skip"]
         ANL["Analyst\nTF-IDF · spaCy · VADER\nFREE LOCAL"]
         NAR2["Narrator T2\nGemini Flash\nfree tier"]
-        AUD["Auditor\nShadow mode · Edit Distance KPI\nVaibhav Jain / Millennium"]
+        AUD["Auditor\nShadow mode\nEdit Distance KPI"]
         NAR3["Narrator T3\nClaude Sonnet\n10 x 1000-word"]
-        JDG["Judge\nLLM-as-Judge\nAyushman Gupta / Genpact"]
+        JDG["Judge\nLLM-as-Judge\n100% T3 + 5% T2"]
         ARC --> TRI --> ANL --> NAR2 --> AUD --> NAR3 --> JDG
     end
 
-    subgraph BLACKBOARD["SHARED BLACKBOARD — DuckDB — Anshul Singh and Sanketh Gadadinni / MathCo"]
+    subgraph BLACKBOARD["SHARED BLACKBOARD — DuckDB 3-Tier Memory"]
         EPI["Episodic Memory\nPENDING-FETCHED-TRIAGED-ANALYZED-SUMMARIZED-AUDITED"]
         SEM["Semantic Memory\nRAG chunks"]
         PRO["Procedural Memory\nRunbook rules\nmlds_day1 / mlds_day2"]
