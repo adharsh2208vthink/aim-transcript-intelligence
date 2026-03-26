@@ -1,0 +1,25 @@
+# Environment & secrets
+.env
+.env.local
+
+# Data cache (can be large)
+data/transcripts/
+data/*.duckdb
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+
+# Docs (internal notes, not for repo)
+docs/
+
+# OS
+.DS_Store

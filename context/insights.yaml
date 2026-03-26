@@ -1,0 +1,120 @@
+# MLDS 2026 Day 1 Context Layer
+# Loaded by Orchestrator at pipeline startup to adapt agent configuration.
+# Source: MLDS 2026 Day 1 sessions — distilled insights that directly
+# informed our architectural decisions.
+#
+# To update after Day 2: add new focus_areas or change emphasis.
+# The pipeline will reconfigure automatically on next run.
+
+source: mlds_day1
+loaded_at: "2026-03-24"
+
+# Focus areas drive agent reconfiguration (see orchestrator.py)
+focus_areas:
+  - memory            # MathCo: Episodic/Semantic/Procedural — all 3 implemented
+  - governance        # Microland + Millennium: shadow mode, audit log, edit distance
+  - grounding         # Intuit (Vignesh): outcome-based, not linguistic evaluation
+  - structural_intelligence  # BITS Pilani: intelligence in structure, not policy
+
+# High-stakes mode: derived from Millennium session
+# When true: Judge runs on 100% of Tier 2 (not just 5%)
+emphasis: production_trust
+
+# Adaptive pipeline rules (written to procedural table at startup)
+adaptive_rules:
+  - rule_id: mlds_day1_strict_audit
+    condition: "triage_tier = 'tier2'"
+    action: full_audit
+    prompt_mod: "Be specific. Cite actual speaker names and company names from the transcript."
+    source: mlds_day1
+
+  - rule_id: mlds_day1_grounding
+    condition: "judge_score < 7"
+    action: rewrite
+    prompt_mod: "Your claims must be traceable to the source transcript. Avoid generalizations."
+    source: mlds_day1
+
+# Key insights that shaped architecture decisions
+# (Used verbatim in report + README pitch lines)
+mlds_insights:
+  - speaker: "Anshul Singh & Sanketh Gadadinni"
+    company: MathCo
+    session: "Building Smarter AI Agents with Memory and Context"
+    applied_as: "3-tier DuckDB blackboard — Episodic, Semantic, Procedural"
+
+  - speaker: "Shashank Rao"
+    company: Atlassian
+    session: "Agentic Request Delegation and Resolution"
+    applied_as: "Orchestrator as Supervisor with hierarchical replanning"
+
+  - speaker: "Vaibhav Jain"
+    company: Millennium
+    session: "Building Trust in an AI Agent When Stakes Get Real"
+    applied_as: "Edit Distance KPI on dashboard, shadow mode Auditor"
+
+  - speaker: "Ayushman Gupta & Chirag Jain"
+    company: Genpact
+    session: "A Unified Framework for Training, Trajectory Improvement, Optimization, and Evaluation of Agentic AI Systems"
+    applied_as: "Judge agent on full reasoning traces, 5% Tier 2 sampling"
+
+  - speaker: "Nikhil Mohanlal Daxini"
+    company: EY GDS
+    session: "From Cost Center to AI Command Center: Building an AI-Native Innovation Hub"
+    applied_as: "Intelligence arbitrage framing, adaptive YAML config layer"
+
+  - speaker: "Alok Shrivastwa"
+    company: Microland
+    session: "Agentic AI is Easy. Running It in Production is Not."
+    applied_as: "Shadow mode first, intent-logged actions, no silent failures"
+
+  - speaker: "Sumeet Tandure"
+    company: Snowflake
+    session: "Guiding Principals for Multi-Agentic Applications Architecture"
+    applied_as: "Human-readable DuckDB schema as semantic layer"
+
+  - speaker: "Prof. Snehanshu Saha"
+    company: BITS Pilani
+    session: "Intelligence in Structure, Not Policy"
+    applied_as: "Hype Cycle graph encodes topic relationships structurally"
+
+  - speaker: "Siddharth Taliyan"
+    company: TiDB
+    session: "The Data Layer for AI Agents: Why Your Database Architecture Will Make or Break Your Agent"
+    applied_as: "DuckDB status column for crash recovery, parallel isolation"
+
+  - speaker: "Vignesh Subrahmaniam"
+    company: Intuit
+    session: "Reinforcement Learning and beyond: Grounding AI in a Stochastic World"
+    applied_as: "Judge grounds evaluations against source transcripts"
+
+  - speaker: "Sarath M & Rajesh Parvathini"
+    company: Tiger Analytics
+    session: "Reframing Classical Data Science Solutions within an Agentic AI Framework"
+    applied_as: "Self-correcting agentic loops; Analyst re-runs on quality drop"
+
+  - speaker: "Prof. Ganesh Ramakrishnan"
+    company: IIT Bombay / BharatGen
+    session: "BharatGen: Sovereign & Shared: Frugally Scalable Multilingual-Multimodal AI for Bharat"
+    applied_as: "AI4Bharat translation layer for Hindi/Tamil/Telugu report output"
+
+# ─────────────────────────────────────────────────────────────────
+# MLDS DAY 2 — Update this section after attending Day 2 sessions.
+# The Orchestrator will automatically re-adapt the pipeline when
+# new focus_areas are added here. Only affected stages re-run.
+# Estimated re-synthesis cost: ~$0.50
+# ─────────────────────────────────────────────────────────────────
+day2_insights:
+  # TO BE FILLED after Day 2 sessions
+  # Example format:
+  # - speaker: "Speaker Name"
+  #   company: "Company"
+  #   session: "Exact Session Title"
+  #   applied_as: "How we adapt the pipeline"
+  #   new_focus_area: "keyword_to_add_to_focus_areas"
+  placeholder: true
+
+# When Day 2 insights are added:
+# 1. Add new entries to day2_insights
+# 2. Add relevant keywords to focus_areas above
+# 3. Run: python run.py --complete-deep-dive
+# The pipeline reads this file at startup and reconfigures automatically.

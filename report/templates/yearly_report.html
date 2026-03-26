@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Georgia, serif; max-width: 900px; margin: 0 auto; padding: 40px; color: #212529; line-height: 1.7; }
+  h1 { font-size: 2.2em; color: #1a1a2e; border-bottom: 3px solid #0d6efd; padding-bottom: 10px; }
+  h2 { font-size: 1.5em; color: #0d6efd; margin-top: 40px; }
+  h3 { font-size: 1.2em; color: #495057; }
+  .cover { text-align: center; padding: 80px 40px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; border-radius: 8px; margin-bottom: 60px; }
+  .cover h1 { color: white; border-bottom: 3px solid #0d6efd; }
+  .cover .subtitle { font-size: 1.1em; opacity: 0.85; margin-top: 10px; }
+  .cover .stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; }
+  .cover .stat { text-align: center; }
+  .cover .stat .num { font-size: 2.5em; font-weight: bold; color: #0d6efd; }
+  .cover .stat .label { font-size: 0.9em; opacity: 0.75; }
+  .year-section { page-break-before: always; margin-top: 60px; }
+  .year-header { background: #f8f9fa; border-left: 5px solid #0d6efd; padding: 20px 25px; border-radius: 0 8px 8px 0; margin-bottom: 30px; }
+  .year-header h2 { margin: 0; font-size: 2em; }
+  .year-meta { display: flex; gap: 30px; margin-top: 10px; font-size: 0.9em; color: #6c757d; }
+  .synthesis { font-size: 1.05em; line-height: 1.8; }
+  .synthesis p { margin-bottom: 1.2em; }
+  .entities { background: #f8f9fa; padding: 20px 25px; border-radius: 8px; margin-top: 30px; }
+  .entities h3 { margin-top: 0; }
+  .tag { display: inline-block; background: #0d6efd; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; margin: 3px 3px 3px 0; }
+  .tag.org { background: #198754; }
+  .tag.tech { background: #dc3545; }
+  .judge-score { float: right; background: #0d6efd; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.9em; font-weight: bold; }
+  .pitch-quote { border-left: 4px solid #0d6efd; padding: 15px 20px; background: #f0f4ff; border-radius: 0 8px 8px 0; font-style: italic; margin: 30px 0; }
+  .mlds-callout { background: #fff3cd; border: 1px solid #ffc107; padding: 20px 25px; border-radius: 8px; margin: 30px 0; }
+  .footer { text-align: center; color: #adb5bd; font-size: 0.85em; margin-top: 80px; padding-top: 20px; border-top: 1px solid #dee2e6; }
+  @media print { .year-section { page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <h1>AIM Media House<br>Content Intelligence Report</h1>
+  <div class="subtitle">10 Years of AI Conversations — Transformed into Editorial Intelligence</div>
+  <div class="stats">
+    <div class="stat">
+      <div class="num">{{ total_videos }}</div>
+      <div class="label">Videos Analyzed</div>
+    </div>
+    <div class="stat">
+      <div class="num">10</div>
+      <div class="label">Years Covered</div>
+    </div>
+    <div class="stat">
+      <div class="num">${{ "%.2f"|format(total_cost) }}</div>
+      <div class="label">Total LLM Cost</div>
+    </div>
+    <div class="stat">
+      <div class="num">7</div>
+      <div class="label">Agents</div>
+    </div>
+  </div>
+  <div style="margin-top: 40px; opacity: 0.75; font-size: 0.9em;">
+    Generated: {{ generated_at }} | MLDS 2026 Hackathon Submission
+  </div>
+</div>
+
+<!-- PITCH LINES -->
+<div class="pitch-quote">
+  "We didn't just analyze AIM's past. We built the intelligence layer AIM needs to make better content decisions — starting today."
+</div>
+
+<!-- MLDS CALLOUT -->
+<div class="mlds-callout">
+  <strong>Architecture informed by MLDS 2026 Day 1 sessions:</strong>
+  Anshul Singh &amp; Sanketh Gadadinni (MathCo) · Shashank Rao (Atlassian) · Vaibhav Jain (Millennium) ·
+  Ayushman Gupta &amp; Chirag Jain (Genpact) · Nikhil Daxini (EY GDS) · Alok Shrivastwa (Microland) ·
+  Prof. Snehanshu Saha (BITS Pilani) · Vignesh Subrahmaniam (Intuit) · Prof. Ganesh Ramakrishnan (IIT Bombay)
+  <br><br>
+  <strong>Day 2 Adaptation:</strong> Update <code>context/insights.yaml</code> and re-run.
+  The pipeline reconfigures automatically. No code changes required.
+</div>
+
+<!-- YEARLY SECTIONS -->
+{% for year_data in years %}
+<div class="year-section">
+  <div class="year-header">
+    {% if year_data.judge_score %}
+    <span class="judge-score">Judge: {{ "%.1f"|format(year_data.judge_score) }}/10</span>
+    {% endif %}
+    <h2>{{ year_data.year }}</h2>
+    <div class="year-meta">
+      <span>{{ year_data.video_count }} videos analyzed</span>
+      {% if year_data.sentiment_avg %}
+      <span>Avg sentiment: {{ "%.2f"|format(year_data.sentiment_avg) }}</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="synthesis">
+    {% for paragraph in year_data.synthesis_paragraphs %}
+    <p>{{ paragraph }}</p>
+    {% endfor %}
+  </div>
+
+  {% if year_data.top_topics or year_data.top_entities %}
+  <div class="entities">
+    {% if year_data.top_topics %}
+    <h3>Top Topics</h3>
+    {% for topic in year_data.top_topics %}
+    <span class="tag">{{ topic }}</span>
+    {% endfor %}
+    {% endif %}
+
+    {% if year_data.top_persons %}
+    <h3 style="margin-top:15px;">Key People</h3>
+    {% for person in year_data.top_persons[:8] %}
+    <span class="tag org">{{ person }}</span>
+    {% endfor %}
+    {% endif %}
+
+    {% if year_data.top_tech %}
+    <h3 style="margin-top:15px;">Technologies</h3>
+    {% for tech in year_data.top_tech[:10] %}
+    <span class="tag tech">{{ tech }}</span>
+    {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endfor %}
+
+<div class="footer">
+  AIM Transcript Intelligence · MLDS 2026 Hackathon ·
+  7-agent pipeline · DuckDB 3-tier blackboard · Gemini Flash + Claude Sonnet ·
+  Total cost: ${{ "%.2f"|format(total_cost) }}
+</div>
+
+</body>
+</html>
