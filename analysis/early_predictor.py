@@ -98,7 +98,8 @@ def build_chart(output_path: str = "data/early_predictor.html") -> go.Figure:
         },
         xaxis=dict(title="Year", tickmode="linear", dtick=1, range=[2014, 2026]),
         yaxis=dict(title="AI Topic", autorange="reversed"),
-        height=max(400, len(comparisons) * 35),
+        height=max(500, len(comparisons) * 35 + 80),
+        margin=dict(b=120),
         template="plotly_white",
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         annotations=[
@@ -107,7 +108,7 @@ def build_chart(output_path: str = "data/early_predictor.html") -> go.Figure:
                      f"before they went mainstream.</b><br>"
                      "This is your brand authority score. Use it in your media kit.",
                 xref="paper", yref="paper",
-                x=0, y=-0.12, showarrow=False,
+                x=0, y=-0.25, showarrow=False,
                 font=dict(size=11, color="#198754"),
                 bgcolor="rgba(25,135,84,0.1)",
                 bordercolor="#198754",
