@@ -6,6 +6,7 @@ No server needed — judges open this file in any browser.
 import json
 import sys
 import os
+import markdown
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pathlib import Path
@@ -76,8 +77,9 @@ def get_pipeline_stats():
 def build_all():
     print("Building static dashboard...")
 
-    # Generate all charts
+    # Generate all charts — first one includes plotly.js inline, rest reuse it
     charts = {}
+    first_chart = True
     for name, builder in [
         ("hype_cycle", build_hype_chart),
         ("early_predictor", build_early_chart),
@@ -87,7 +89,12 @@ def build_all():
         try:
             fig = builder(output_path=None)
             if fig:
-                charts[name] = fig.to_html(full_html=False, include_plotlyjs=False)
+                # First chart embeds plotly.js (~3MB), rest reuse it
+                charts[name] = fig.to_html(
+                    full_html=False,
+                    include_plotlyjs=True if first_chart else False
+                )
+                first_chart = False
                 print(f"  {name}: OK")
             else:
                 charts[name] = f"<p>Chart not available (no data)</p>"
@@ -117,7 +124,7 @@ def build_all():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIM Content Intelligence Dashboard</title>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!-- Plotly.js embedded inline in first chart for full self-containment -->
 <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
     body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0e1117; color: #fafafa; line-height: 1.6; }}
@@ -216,7 +223,7 @@ def build_all():
         score_badge = f'{s["judge_score"]:.1f}/10' if s["judge_score"] else "Pending"
         topics_html = "".join(f'<span class="tag">{t}</span>' for t in s["topics"])
         entities_html = "".join(f'<span class="tag">{e}</span>' for e in s["entities"])
-        paragraphs = s["synthesis"].replace("\n\n", "</p><p>") if s["synthesis"] else "<em>Not yet generated</em>"
+        paragraphs = markdown.markdown(s["synthesis"]) if s["synthesis"] else "<em>Not yet generated</em>"
 
         html += f"""
     <div class="year-card">
@@ -228,7 +235,7 @@ def build_all():
             </div>
         </div>
         <div class="tags">{topics_html}{entities_html}</div>
-        <div class="synthesis"><p>{paragraphs}</p></div>
+        <div class="synthesis">{paragraphs}</div>
     </div>
 """
 
