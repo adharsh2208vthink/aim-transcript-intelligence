@@ -5,8 +5,7 @@
 
 **10 years · 3,173 videos · Under $1 total LLM cost**
 
-<!-- Fill in after pipeline runs: use the most surprising real finding -->
-> **Key finding:** `[FILL: e.g. "AIM covered RAG 2 years before it went mainstream, and the data proves it"]`
+> **Key finding:** In 2020, LLMs appeared in just 2 AIM videos. By 2025, it was 173. Agentic AI went from zero to 265 mentions in a single year. AIM tracked the AI revolution in real time.
 
 ### TL;DR for Judges
 
@@ -42,8 +41,15 @@ python run.py --sprint-demo
 streamlit run dashboard/app.py
 ```
 
-<!-- Fill in after pipeline runs -->
-**Live dashboard:** `[FILL: screenshot or gif of dashboard]`
+## Key Deliverables
+
+| Deliverable | Location | What's Inside |
+|---|---|---|
+| **Interactive Dashboard** | [**Open Dashboard**](https://adharsh2208vthink.github.io/aim-transcript-intelligence/FOR_JUDGES/dashboard.html) | 5 interactive Plotly charts + 12 yearly syntheses. Click to view live. |
+| **Yearly Report** | [**Open Report**](https://adharsh2208vthink.github.io/aim-transcript-intelligence/FOR_JUDGES/report.html) | 10 yearly intelligence reports with Judge scores + System Log appendix |
+| **Demo Video: Architecture** | [`AIM_Intelligence_Agent_Architecture.mp4`](FOR_JUDGES/AIM_Intelligence_Agent_Architecture.mp4) | AI-generated walkthrough of the 7-agent pipeline (NotebookLM) |
+| **Demo Video: Summary** | [`Summary_AIM_YouTube_Channel.mp4`](FOR_JUDGES/Summary_AIM_YouTube_Channel.mp4) | AI-generated overview of AIM channel intelligence (NotebookLM) |
+| **Architecture** | See [below](#architecture) | 7-agent pipeline with shared DuckDB blackboard, MLDS Day 1 citations throughout |
 
 ---
 
