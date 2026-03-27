@@ -172,19 +172,17 @@ def build_chart(output_path: str = "data/sentiment_trajectory.html") -> go.Figur
 
     fig.update_layout(
         title={
-            "text": "AIM Media House — Sentiment Trajectory 2015–2025<br>"
-                    "<sub>VADER sentiment aggregated across all videos by year | "
-                    "Blue line = net sentiment (positive − negative)</sub>",
+            "text": "AIM Media House: Sentiment Trajectory 2015-2025",
             "x": 0.5,
             "xanchor": "center",
         },
         xaxis=dict(title="Year", tickmode="linear", dtick=1),
         yaxis=dict(title="VADER Sentiment Score"),
         height=550,
-        margin=dict(b=100, t=120),
+        margin=dict(b=100, t=80),
         template="plotly_white",
         hovermode="x unified",
-        legend=dict(orientation="h", yanchor="bottom", y=1.08, xanchor="right", x=1),
+        legend=dict(orientation="v", yanchor="top", y=0.99, xanchor="left", x=1.02),
         annotations=list(fig.layout.annotations) + [
             dict(
                 text="Powered by VADER sentiment analysis (free, local). "
