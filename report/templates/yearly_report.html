@@ -95,7 +95,7 @@
 
   <div class="synthesis">
     {% for paragraph in year_data.synthesis_paragraphs %}
-    <p>{{ paragraph }}</p>
+    {{ paragraph | safe }}
     {% endfor %}
   </div>
 

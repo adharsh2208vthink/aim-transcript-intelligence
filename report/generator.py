@@ -16,6 +16,7 @@ Output:
 import json
 from pathlib import Path
 from datetime import datetime
+import markdown
 
 from jinja2 import Environment, FileSystemLoader
 from pipeline.database import get_connection
@@ -51,10 +52,9 @@ def _get_report_data() -> dict:
             topics_j, entities_j, sentiment_avg in yearly_rows:
 
         synthesis = summary_final or summary_draft or ""
-        # Split into paragraphs for HTML rendering
-        paragraphs = [p.strip() for p in synthesis.split("\n\n") if p.strip()]
-        if not paragraphs and synthesis:
-            paragraphs = [synthesis]
+        # Convert markdown to HTML
+        synthesis_html = markdown.markdown(synthesis) if synthesis else ""
+        paragraphs = [synthesis_html] if synthesis_html else []
 
         topics = json.loads(topics_j) if topics_j else []
         entities = json.loads(entities_j) if entities_j else []
