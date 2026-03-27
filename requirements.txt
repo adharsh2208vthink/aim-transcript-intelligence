@@ -1,0 +1,34 @@
+# Data fetching
+youtube-transcript-api==0.6.3
+yt-dlp==2024.12.13
+
+# Storage
+duckdb==1.1.3
+
+# Local ML
+scikit-learn==1.6.1
+spacy==3.8.3
+
+# LLMs
+anthropic==0.45.0
+google-generativeai==0.8.3
+
+# Async
+aiohttp==3.11.11
+
+# Dashboard
+streamlit==1.42.0
+plotly==5.24.1
+pyvis==0.3.2
+
+# Report
+jinja2==3.1.5
+weasyprint==62.3
+
+# Sentiment analysis
+vaderSentiment==3.3.2
+
+# Utilities
+python-dotenv==1.0.1
+tqdm==4.67.1
+pydantic==2.10.6
