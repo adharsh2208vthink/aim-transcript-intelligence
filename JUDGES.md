@@ -33,8 +33,9 @@ streamlit run dashboard/app.py    # launch dashboard
 | Deliverable | Location | What's Inside |
 |---|---|---|
 | **Interactive Dashboard** | [**Open Dashboard**](https://adharsh2208vthink.github.io/aim-transcript-intelligence/FOR_JUDGES/dashboard.html) | 5 interactive Plotly charts + 12 yearly syntheses. Click to view live. |
-| **Yearly Report** | [**Open Report**](https://adharsh2208vthink.github.io/aim-transcript-intelligence/outputs/aim_intelligence_report.html) | 10 yearly intelligence reports with Judge scores + System Log appendix |
-| **Demo Video** | `FOR_JUDGES/` (coming soon) | < 2 min walkthrough |
+| **Yearly Report** | [**Open Report**](FOR_JUDGES/report.html) | 10 yearly intelligence reports with Judge scores + System Log appendix |
+| **Demo Video: Architecture** | [`AIM_Intelligence_Agent_Architecture.mp4`](FOR_JUDGES/AIM_Intelligence_Agent_Architecture.mp4) | AI-generated walkthrough of the 7-agent pipeline (NotebookLM) |
+| **Demo Video: Summary** | [`Summary_AIM_YouTube_Channel.mp4`](FOR_JUDGES/Summary_AIM_YouTube_Channel.mp4) | AI-generated overview of AIM channel intelligence (NotebookLM) |
 | **Architecture** | See [README.md](README.md#architecture) | 7-agent pipeline with shared DuckDB blackboard, MLDS Day 1 citations throughout |
 
 ## Inspired by 13 MLDS Day 1 Sessions
