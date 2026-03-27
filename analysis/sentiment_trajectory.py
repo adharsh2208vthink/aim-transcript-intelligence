@@ -60,7 +60,7 @@ def compute_yearly_sentiment() -> dict:
 NARRATIVE_ANNOTATIONS = {
     2017: "AlphaGo &<br>Deep Learning hype",
     2020: "COVID accelerates<br>digital AI adoption",
-    2022: "ChatGPT launches —<br>peak optimism",
+    2022: "ChatGPT launch:<br>peak optimism",
     2023: "LLM reality check:<br>costs, hallucinations",
     2025: "Agentic AI era:<br>measured excitement",
 }
@@ -150,9 +150,7 @@ def build_chart(output_path: str = "data/sentiment_trajectory.html") -> go.Figur
                 line_dash="dash",
                 line_color="red",
                 line_width=2,
-                annotation_text=f"⚡ Strategic Pivot<br><i>{pivot_text[:60]}</i>",
-                annotation_position="top",
-                annotation_font=dict(size=9, color="red"),
+                annotation=None,
             )
 
     # Narrative annotations
@@ -182,16 +180,17 @@ def build_chart(output_path: str = "data/sentiment_trajectory.html") -> go.Figur
         },
         xaxis=dict(title="Year", tickmode="linear", dtick=1),
         yaxis=dict(title="VADER Sentiment Score"),
-        height=500,
+        height=550,
+        margin=dict(b=100),
         template="plotly_white",
         hovermode="x unified",
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         annotations=list(fig.layout.annotations) + [
             dict(
-                text="Powered by VADER sentiment analysis (free, local) — "
-                     "ran on all 3,173 transcripts without API cost.",
+                text="Powered by VADER sentiment analysis (free, local). "
+                     "Ran on all 3,173 transcripts without API cost.",
                 xref="paper", yref="paper",
-                x=0, y=-0.13, showarrow=False,
+                x=0, y=-0.22, showarrow=False,
                 font=dict(size=10, color="grey"),
             )
         ]
