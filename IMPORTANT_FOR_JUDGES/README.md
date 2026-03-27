@@ -50,7 +50,7 @@ Every architectural decision traces back to something we learned on Day 1. Five 
 | *From Cost Center to AI Command Center* | Nikhil Daxini (EY GDS) | Adaptive YAML config + MCP production path. Built-in, not bolt-on |
 | *Intelligence in Structure, Not Policy* | Prof. Snehanshu Saha (BITS Pilani) | Hype Cycle as structural graph. Trend detection from topology, not rules |
 
-Plus 4 more sessions applied across the pipeline (see [full citation table in README](README.md#lessons-learnt-from-mlds-day-1--applied-directly)).
+Plus 4 more sessions applied across the pipeline (see [full citation table in README](../README.md#lessons-learnt-from-mlds-day-1--applied-directly)).
 
 ## AIM's Suggested Path to Production
 
@@ -69,4 +69,4 @@ The bridge: **MCP (Model Context Protocol) connectors**. One YAML entry per tool
 
 ---
 
-**Full details:** [README.md](README.md) | **Repo:** `feature/pipeline` branch
+**Full details:** [README.md](../README.md) | **Repo:** `main` branch

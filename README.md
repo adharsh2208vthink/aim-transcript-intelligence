@@ -78,7 +78,7 @@ flowchart LR
         ARC --> TRI --> ANL --> NAR2 --> AUD --> NAR3 --> JDG
     end
 
-    subgraph BLACKBOARD["SHARED BLACKBOARD — DuckDB 3-Tier Memory"]
+    subgraph BLACKBOARD["SHARED BLACKBOARD: DuckDB 3-Tier Memory"]
         EPI["Episodic Memory\nPENDING-FETCHED-TRIAGED-ANALYZED-SUMMARIZED-AUDITED"]
         SEM["Semantic Memory\nRAG chunks"]
         PRO["Procedural Memory\nRunbook rules\nmlds_day1 / mlds_day2"]
@@ -236,7 +236,7 @@ This is what Nikhil described as the shift from "AI as experiment" to "AI as com
 ## Setup
 
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/aim-transcript-intelligence
+git clone https://github.com/adharsh2208vthink/aim-transcript-intelligence
 cd aim-transcript-intelligence
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt

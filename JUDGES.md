@@ -33,7 +33,7 @@ streamlit run dashboard/app.py    # launch dashboard
 | Deliverable | Location | What's Inside |
 |---|---|---|
 | **Interactive Dashboard** | [**Open Dashboard**](https://adharsh2208vthink.github.io/aim-transcript-intelligence/IMPORTANT_FOR_JUDGES/dashboard.html) | 5 interactive Plotly charts + 12 yearly syntheses. Click to view live. |
-| **Yearly Report** | [**Open Report**](IMPORTANT_FOR_JUDGES/report.html) | 10 yearly intelligence reports with Judge scores + System Log appendix |
+| **Yearly Report** | [**Open Report**](https://adharsh2208vthink.github.io/aim-transcript-intelligence/IMPORTANT_FOR_JUDGES/report.html) | 10 yearly intelligence reports with Judge scores + System Log appendix |
 | **Demo Video: Architecture** | [`AIM_Intelligence_Agent_Architecture.mp4`](IMPORTANT_FOR_JUDGES/AIM_Intelligence_Agent_Architecture.mp4) | AI-generated walkthrough of the 7-agent pipeline (NotebookLM) |
 | **Demo Video: Summary** | [`Summary_AIM_YouTube_Channel.mp4`](IMPORTANT_FOR_JUDGES/Summary_AIM_YouTube_Channel.mp4) | AI-generated overview of AIM channel intelligence (NotebookLM) |
 | **Architecture** | See [README.md](README.md#architecture) | 7-agent pipeline with shared DuckDB blackboard, MLDS Day 1 citations throughout |
@@ -69,4 +69,4 @@ The bridge: **MCP (Model Context Protocol) connectors**. One YAML entry per tool
 
 ---
 
-**Full details:** [README.md](README.md) | **Repo:** `feature/pipeline` branch
+**Full details:** [README.md](README.md) | **Repo:** `main` branch
