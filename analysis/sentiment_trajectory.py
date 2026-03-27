@@ -66,6 +66,29 @@ NARRATIVE_ANNOTATIONS = {
 }
 
 
+def get_inflection_points() -> dict:
+    """Pull Judge-identified Strategic Inflection Points from yearly_summaries."""
+    try:
+        con = get_connection()
+        rows = con.execute("""
+            SELECT year, judge_feedback FROM yearly_summaries
+            WHERE judge_feedback IS NOT NULL
+        """).fetchall()
+        con.close()
+        inflections = {}
+        import json as _json
+        for year, feedback_json in rows:
+            try:
+                fb = _json.loads(feedback_json)
+                if fb.get("is_inflection_point"):
+                    inflections[year] = fb.get("narrative_pivot", "Strategic Inflection Point")
+            except Exception:
+                pass
+        return inflections
+    except Exception:
+        return {}
+
+
 def build_chart(output_path: str = "data/sentiment_trajectory.html") -> go.Figure:
     """Build the Sentiment Trajectory chart."""
     data = compute_yearly_sentiment()
@@ -117,6 +140,20 @@ def build_chart(output_path: str = "data/sentiment_trajectory.html") -> go.Figur
 
     # Zero line
     fig.add_hline(y=0, line_dash="dash", line_color="lightgrey")
+
+    # Strategic Inflection Points from Judge (red vertical lines)
+    inflections = get_inflection_points()
+    for year, pivot_text in inflections.items():
+        if year in data:
+            fig.add_vline(
+                x=year,
+                line_dash="dash",
+                line_color="red",
+                line_width=2,
+                annotation_text=f"⚡ Strategic Pivot<br><i>{pivot_text[:60]}</i>",
+                annotation_position="top",
+                annotation_font=dict(size=9, color="red"),
+            )
 
     # Narrative annotations
     for year, note in NARRATIVE_ANNOTATIONS.items():

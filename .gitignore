@@ -5,6 +5,9 @@
 # Data cache (can be large)
 data/transcripts/
 data/*.duckdb
+data/speaker_network.html
+data/videos_metadata.json
+lib/
 
 # Python
 __pycache__/

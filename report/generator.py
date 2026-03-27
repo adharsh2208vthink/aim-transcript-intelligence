@@ -106,6 +106,34 @@ def _get_report_data() -> dict:
             "sentiment_avg": sentiment_avg,
         })
 
+    # System Log — agent decisions for PDF appendix
+    agent_log_rows = con.execute("""
+        SELECT video_id, title, agent_log, status, fetch_method
+        FROM episodic
+        WHERE agent_log IS NOT NULL AND agent_log != '[]'
+        ORDER BY updated_at DESC
+        LIMIT 50
+    """).fetchall()
+
+    system_log = []
+    for video_id, title, log_json, status, fetch_method in agent_log_rows:
+        log = json.loads(log_json) if log_json else []
+        for entry in log[-2:]:  # Last 2 decisions per video
+            system_log.append({
+                "video": (title or video_id)[:60],
+                "agent": entry.get("agent", "?"),
+                "action": entry.get("action", "?"),
+                "detail": entry.get("detail", "")[:100],
+                "ts": entry.get("ts", "")[:19],
+            })
+
+    # Data lineage summary
+    fetch_counts = con.execute("""
+        SELECT fetch_method, COUNT(*) FROM episodic
+        WHERE fetch_method IS NOT NULL GROUP BY fetch_method
+    """).fetchall()
+    data_lineage = {r[0]: r[1] for r in fetch_counts}
+
     con.close()
 
     return {
@@ -113,6 +141,8 @@ def _get_report_data() -> dict:
         "total_cost": total_cost,
         "generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
         "years": years_data,
+        "system_log": system_log[:30],
+        "data_lineage": data_lineage,
     }
 
 

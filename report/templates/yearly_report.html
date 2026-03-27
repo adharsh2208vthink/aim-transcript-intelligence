@@ -126,6 +126,62 @@
 </div>
 {% endfor %}
 
+{% if system_log or data_lineage %}
+<div class="year-section" style="page-break-before: always;">
+  <h2>Appendix — System Log &amp; Data Lineage</h2>
+  <p style="color:#6c757d; font-size:0.9em;">
+    Proof of agentic operation: every agent decision, rejection, and rerun is logged immutably
+    to the episodic blackboard. This appendix shows a sample of 30 agent decisions.
+  </p>
+
+  {% if data_lineage %}
+  <h3>Data Lineage</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:0.9em; margin-bottom:30px;">
+    <thead>
+      <tr style="background:#0d6efd; color:white;">
+        <th style="padding:8px 12px; text-align:left;">Source</th>
+        <th style="padding:8px 12px; text-align:right;">Videos</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for method, count in data_lineage.items() %}
+      <tr style="border-bottom:1px solid #dee2e6;">
+        <td style="padding:8px 12px;">{{ method }}</td>
+        <td style="padding:8px 12px; text-align:right;">{{ count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if system_log %}
+  <h3>Agent Decision Log (sample)</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:0.8em;">
+    <thead>
+      <tr style="background:#1a1a2e; color:white;">
+        <th style="padding:6px 10px; text-align:left;">Timestamp</th>
+        <th style="padding:6px 10px; text-align:left;">Agent</th>
+        <th style="padding:6px 10px; text-align:left;">Action</th>
+        <th style="padding:6px 10px; text-align:left;">Video</th>
+        <th style="padding:6px 10px; text-align:left;">Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in system_log %}
+      <tr style="border-bottom:1px solid #dee2e6; {% if 'rerun' in entry.action %}background:#fff3cd;{% endif %}">
+        <td style="padding:5px 10px; color:#6c757d;">{{ entry.ts }}</td>
+        <td style="padding:5px 10px; font-weight:bold;">{{ entry.agent }}</td>
+        <td style="padding:5px 10px;">{{ entry.action }}</td>
+        <td style="padding:5px 10px;">{{ entry.video }}</td>
+        <td style="padding:5px 10px; color:#495057;">{{ entry.detail }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endif %}
+
 <div class="footer">
   AIM Transcript Intelligence · MLDS 2026 Hackathon ·
   7-agent pipeline · DuckDB 3-tier blackboard · Gemini Flash + Claude Sonnet ·

@@ -257,15 +257,36 @@ elif page == "Pipeline Status":
 
         st.divider()
 
-    # Fetch method breakdown
+    # ── DATA INTEGRITY SCORE ──────────────────────────────────────────────────
+    st.subheader("System Health — Data Integrity")
     fetch_rows = con.execute("""
         SELECT fetch_method, COUNT(*) FROM episodic
         WHERE fetch_method IS NOT NULL GROUP BY fetch_method
     """).fetchall()
     if fetch_rows:
-        st.caption("**Transcript Sources:**")
-        for method, count in fetch_rows:
-            st.write(f"  - `{method}`: {count} videos")
+        import pandas as pd
+        fetch_map = {r[0]: r[1] for r in fetch_rows}
+        total_fetched = sum(fetch_map.values())
+        native = fetch_map.get("transcript_api", 0)
+        ytdlp = fetch_map.get("ytdlp_subtitle", 0)
+        description = fetch_map.get("description_api", 0)
+        unavailable = fetch_map.get("unavailable", 0)
+        coverage_pct = (total_fetched - unavailable) / max(total_fetched, 1) * 100
+
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Data Coverage", f"{coverage_pct:.1f}%")
+        c2.metric("Native Transcripts", native, help="youtube-transcript-api")
+        c3.metric("yt-dlp Fallback", ytdlp, help="Subtitle extraction")
+        c4.metric("Researcher Agent", description, help="Description+tags for no-caption videos")
+
+        import plotly.express as px
+        labels = ["Native Captions", "yt-dlp Subtitles", "Researcher Agent", "Unavailable"]
+        values = [native, ytdlp, description, unavailable]
+        fig = px.pie(values=values, names=labels, hole=0.5,
+                     color_discrete_sequence=["#00CC96", "#636EFA", "#FFA15A", "#EF553B"],
+                     title="Data Lineage — How Every Video Was Covered")
+        st.plotly_chart(fig, use_container_width=True)
+        st.caption("**Researcher Agent** = specialized fallback for 'dark' videos with no captions — fetches title, description, and tags via YouTube Data API v3.")
 
     # Triage breakdown
     triage_rows = con.execute("""
@@ -276,6 +297,37 @@ elif page == "Pipeline Status":
         st.caption("**Triage Routing:**")
         for tier, count in triage_rows:
             st.write(f"  - `{tier}`: {count} videos")
+
+    # ── REJECTION LOOP — Agentic Self-Correction ──────────────────────────────
+    st.subheader("Agentic Rejection Loop — Where the System Self-Corrected")
+    st.caption("Every row here is proof of agency: Auditor rejected, Orchestrator re-queued, Narrator reran.")
+
+    rerun_rows = con.execute("""
+        SELECT video_id, title, agent_log FROM episodic
+        WHERE status = 'RERUN_REQUESTED'
+           OR (agent_log LIKE '%RERUN_REQUESTED%' OR agent_log LIKE '%rerun%')
+        ORDER BY updated_at DESC LIMIT 20
+    """).fetchall()
+
+    if rerun_rows:
+        import pandas as pd
+        rerun_display = []
+        for video_id, title, log_json in rerun_rows:
+            log = json.loads(log_json) if log_json else []
+            rerun_entry = next((e for e in log if "rerun" in e.get("action","").lower()), None)
+            if rerun_entry:
+                rerun_display.append({
+                    "Video": (title or video_id)[:50],
+                    "Agent": rerun_entry.get("agent", "auditor"),
+                    "Status": "REJECTED → RERUN",
+                    "Reason": rerun_entry.get("detail", "")[:80],
+                })
+        if rerun_display:
+            st.dataframe(pd.DataFrame(rerun_display), use_container_width=True, hide_index=True)
+    else:
+        st.info("Rerun events will appear here after Auditor runs. (Pipeline not yet complete.)")
+
+    st.divider()
 
     # Recent agent log entries
     st.subheader("Recent Agent Decisions")

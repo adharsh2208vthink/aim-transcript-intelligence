@@ -69,6 +69,8 @@ Score the synthesis on these 5 dimensions (0-10 each):
 4. **Coverage** — Does it represent the year's breadth, or miss major themes?
 5. **Coherence** — Logical flow, consistent narrative arc, no contradictions?
 
+Also identify the **Narrative Pivot** for this year: the single most significant shift in topic focus or sentiment compared to the prior year. Label it as a "Strategic Inflection Point" if the shift is large enough to represent a change in editorial direction.
+
 Respond in this exact JSON format:
 {{
   "scores": {{
@@ -81,6 +83,8 @@ Respond in this exact JSON format:
   "overall": <0-10 weighted average>,
   "strengths": ["<specific strength 1>", "<specific strength 2>"],
   "weaknesses": ["<specific weakness 1>", "<specific weakness 2>"],
+  "narrative_pivot": "<one sentence: what shifted this year and why it mattered>",
+  "is_inflection_point": true | false,
   "recommendation": "approve" | "revise" | "rewrite"
 }}"""
 
