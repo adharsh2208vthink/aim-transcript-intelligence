@@ -181,10 +181,10 @@ def build_chart(output_path: str = "data/sentiment_trajectory.html") -> go.Figur
         xaxis=dict(title="Year", tickmode="linear", dtick=1),
         yaxis=dict(title="VADER Sentiment Score"),
         height=550,
-        margin=dict(b=100),
+        margin=dict(b=100, t=120),
         template="plotly_white",
         hovermode="x unified",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        legend=dict(orientation="h", yanchor="bottom", y=1.08, xanchor="right", x=1),
         annotations=list(fig.layout.annotations) + [
             dict(
                 text="Powered by VADER sentiment analysis (free, local). "
